@@ -3,10 +3,16 @@ import "../styles/global.css";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import camper from "../assets/camper.jpg";
+import ArrowRight from "../assets/arrow-right.svg";
+import { getCollection } from "astro:content";
+
+const allArticles = await getCollection("article");
+const featuredArticle = allArticles.find((article) => article.data.featured);
+const articles = allArticles.filter((article) => !article.data.featured);
 ---
 
 <BaseLayout>
-  <main class="text-slate-900">
+  <main>
     <section class="mx-auto max-w-7xl px-6 py-14 lg:py-20">
       <div class="max-w-4xl">
         <p
@@ -19,145 +25,71 @@ import camper from "../assets/camper.jpg";
         </h1>
       </div>
     </section>
-
-    <section class="mx-auto max-w-7xl px-6 pb-20">
-      <article
-        class="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_24px_80px_-28px_rgba(15,23,42,0.15)]"
-      >
-        <div class="grid lg:grid-cols-[1fr_1fr]">
-          <img
-            src={camper.src}
-            alt="Campervan parked by a Finnish lake"
-            class="h-120 w-full object-cover"
-          />
-          <div class="p-10 lg:px-12 lg:py-14">
-            <p
-              class="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700"
-            >
-              Featured article
-            </p>
-            <h2 class="mt-4 text-3xl font-semibold text-slate-900 sm:text-4xl">
-              Slow travel along Finland’s lakes and forests
-            </h2>
-            <p class="mt-4 text-base leading-8 text-slate-600">
-              A fresh, practical look at how to turn a simple route into a
-              memorable camper journey with more room to breathe, better stops,
-              and a slower pace.
-            </p>
-            <a
-              href="#"
-              class="mt-6 inline-flex items-center text-sm font-semibold text-sky-700"
-            >
-              Read more
-            </a>
-          </div>
-        </div>
-      </article>
+    <section class="mx-auto max-w-7xl px-6 pb-20 mb-12">
+      {
+        featuredArticle && (
+          <article class="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_24px_80px_-28px_rgba(15,23,42,0.15)]">
+            <div class="grid lg:grid-cols-[1fr_1fr]">
+              <a href={`/articles/${featuredArticle?.data.slug}`}>
+                <img
+                  src={camper.src}
+                  alt="Campervan parked by a Finnish lake"
+                  class="h-120 w-full object-cover"
+                />
+                <div class="p-10 lg:px-12 lg:py-14">
+                  <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700">
+                    Featured article
+                  </p>
+                  <h2 class="mt-4 text-3xl font-semibold text-slate-900 sm:text-4xl">
+                    {featuredArticle?.data.title}
+                  </h2>
+                  <p class="mt-4 text-base leading-8 text-slate-600">
+                    {featuredArticle?.data.description}
+                  </p>
+                  <a
+                    href={`/articles/${featuredArticle?.data.slug}`}
+                    class="mt-6 inline-flex items-center text-md font-semibold text-sky-700 hover:text-sky-600 underline"
+                  >
+                    Read more
+                    <ArrowRight class="ml-2 w-5" />
+                  </a>
+                </div>
+              </a>
+            </div>
+          </article>
+        )
+      }
 
       <div class="mt-10 grid gap-6 md:grid-cols-2">
-        <article
-          class="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_20px_60px_-28px_rgba(15,23,42,0.15)]"
-        >
-          <img
-            src={camper.src}
-            alt="Campervan parked by a Finnish lake"
-            class="h-56 w-full object-cover"
-          />
-          <div class="p-7">
-            <p class="text-sm font-semibold text-sky-700">Summer route</p>
-            <h2 class="mt-3 text-2xl font-semibold text-slate-900">
-              A relaxed lake-loop itinerary in Finland
-            </h2>
-            <p class="mt-3 text-base leading-7 text-slate-600">
-              Discover a scenic, stress-free plan for stopping at forests,
-              lakeside campsites, and local food stops along the way.
-            </p>
-            <a
-              href="#"
-              class="mt-5 inline-flex text-sm font-semibold text-sky-700"
-            >
-              Read more
-            </a>
-          </div>
-        </article>
-
-        <article
-          class="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_20px_60px_-28px_rgba(15,23,42,0.15)]"
-        >
-          <img
-            src={camper.src}
-            alt="Campervan parked by a Finnish lake"
-            class="h-56 w-full object-cover"
-          />
-          <div class="p-7">
-            <p class="text-sm font-semibold text-sky-700">Camp setup</p>
-            <h2 class="mt-3 text-2xl font-semibold text-slate-900">
-              What to pack for a comfortable campervan trip
-            </h2>
-            <p class="mt-3 text-base leading-7 text-slate-600">
-              A practical checklist for weather, cooking, sleeping, and everyday
-              essentials so your trip feels easy from the first mile.
-            </p>
-            <a
-              href="#"
-              class="mt-5 inline-flex text-sm font-semibold text-sky-700"
-            >
-              Read more
-            </a>
-          </div>
-        </article>
-
-        <article
-          class="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_20px_60px_-28px_rgba(15,23,42,0.15)]"
-        >
-          <img
-            src={camper.src}
-            alt="Campervan parked by a Finnish lake"
-            class="h-56 w-full object-cover"
-          />
-          <div class="p-7">
-            <p class="text-sm font-semibold text-sky-700">Hidden gems</p>
-            <h2 class="mt-3 text-2xl font-semibold text-slate-900">
-              The best quiet places to stop for the night
-            </h2>
-            <p class="mt-3 text-base leading-7 text-slate-600">
-              A short guide to peaceful overnight stops, local nature spots, and
-              the simple pleasures of traveling slowly in Finland.
-            </p>
-            <a
-              href="#"
-              class="mt-5 inline-flex text-sm font-semibold text-sky-700"
-            >
-              Read more
-            </a>
-          </div>
-        </article>
-
-        <article
-          class="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_20px_60px_-28px_rgba(15,23,42,0.15)]"
-        >
-          <img
-            src={camper.src}
-            alt="Campervan parked by a Finnish lake"
-            class="h-56 w-full object-cover"
-          />
-          <div class="p-7">
-            <p class="text-sm font-semibold text-sky-700">Planning</p>
-            <h2 class="mt-3 text-2xl font-semibold text-slate-900">
-              How to build your first Finland road trip plan
-            </h2>
-            <p class="mt-3 text-base leading-7 text-slate-600">
-              A straightforward overview of choosing your route, timing your
-              stops, and keeping the trip flexible as the weather changes.
-            </p>
-            <a
-              href="#"
-              class="mt-5 inline-flex text-sm font-semibold text-sky-700"
-            >
-              Read more
-            </a>
-          </div>
-        </article>
+        {
+          articles.map((article) => (
+            <article class="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_20px_60px_-28px_rgba(15,23,42,0.15)]">
+              <a href={`/articles/${article.data.slug}`}>
+                <img
+                  src={camper.src}
+                  alt="Campervan parked by a Finnish lake"
+                  class="h-56 w-full object-cover"
+                />
+                <div class="p-7">
+                  {/*<p class="text-sm font-semibold text-sky-700">Summer route</p>*/}
+                  <h2 class="mt-3 text-2xl font-semibold text-slate-900">
+                    {article.data.title}
+                  </h2>
+                  <p class="mt-3 text-base leading-7 text-slate-600 ">
+                    {article.data.description}
+                  </p>
+                  <a
+                    href={`/articles/${article.data.slug}`}
+                    class="mt-5 inline-flex text-md font-semibold text-sky-700 hover:text-sky-600 underline"
+                  >
+                    Read more
+                    <ArrowRight class="ml-2 w-5" />
+                  </a>
+                </div>
+              </a>
+            </article>
+          ))
+        }
       </div>
     </section>
   </main>

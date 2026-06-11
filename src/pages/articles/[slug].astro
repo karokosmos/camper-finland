@@ -1,0 +1,30 @@
+---
+import "../../styles/global.css";
+
+import { getCollection, render } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("article");
+  return articles.map((article) => ({
+    params: { slug: article.data.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<ArticleLayout>
+  <div>
+    {
+      article.data.updated ? (
+        <p>Updated on {article.data.updated.toLocaleDateString("fi-FI")}</p>
+      ) : (
+        <p>Created on {article.data.published.toLocaleDateString("fi-FI")}</p>
+      )
+    }
+    <Content />
+  </div>
+</ArticleLayout>
