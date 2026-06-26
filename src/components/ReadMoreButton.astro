@@ -1,0 +1,12 @@
+---
+import ArrowRight from "../assets/arrow-right.svg";
+const { href } = Astro.props;
+---
+
+<a
+    href={href}
+    class="mt-6 inline-flex items-center text-md font-semibold text-sky-700 hover:text-sky-600 hover:underline relative z-10"
+>
+    Read more
+    <ArrowRight class="ml-2 w-5" />
+</a>

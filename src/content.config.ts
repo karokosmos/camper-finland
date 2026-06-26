@@ -8,9 +8,10 @@ const article = defineCollection({
     title: z.string(),
     description: z.string(),
     slug: z.string(),
-    published: z.date(),
+    published: z.nullish(z.date()),
     updated: z.nullish(z.date()),
-    featured: z.boolean()
+    featured: z.boolean(),
+    landing: z.boolean()
   }),
 });
 
