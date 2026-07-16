@@ -1,0 +1,25 @@
+---
+interface Props {
+  words: {
+    term: string;
+    translation: string;
+  }[];
+}
+
+const { words } = Astro.props;
+---
+
+<section class="not-prose my-8 rounded-xl border border-slate-200 p-6">
+  <h3 class="text-base font-semibold">Finnish for campers</h3>
+
+  <ul class="mt-4 space-y-2.5">
+    {
+      words.map((word) => (
+        <li class="text-sm text-slate-700">
+          <span class="font-medium">{word.term}</span> —{" "}
+          <span class="italic">{word.translation}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
