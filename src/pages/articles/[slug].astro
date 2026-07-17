@@ -3,6 +3,7 @@ import "../../styles/global.css";
 
 import { getCollection, render } from "astro:content";
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import ReadNext from "../../components/ReadNext.astro";
 
 export async function getStaticPaths() {
   const articles = await getCollection("article");
@@ -14,8 +15,25 @@ export async function getStaticPaths() {
     }));
 }
 
+const allArticles = await getCollection("article");
 const { article } = Astro.props;
 const { Content } = await render(article);
+
+const readNextArticles = (article.data.readNext?.length
+  ? article.data.readNext
+      .map((slug) => allArticles.find((item) => item.data.slug === slug))
+      .filter(
+        (item): item is typeof allArticles[number] =>
+          item !== undefined && item.data.published !== undefined
+      )
+  : allArticles.filter((item) => item.data.published && item.data.slug !== article.data.slug)
+)
+  .slice(0, 2)
+  .map((item) => ({
+    title: item.data.title,
+    description: item.data.description,
+    slug: item.data.slug,
+  }));
 ---
 
 <ArticleLayout pageTitle={article.data.title}>
@@ -29,4 +47,6 @@ const { Content } = await render(article);
     }
     <Content />
   </article>
+
+  <ReadNext articles={readNextArticles} />
 </ArticleLayout>

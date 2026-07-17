@@ -11,7 +11,8 @@ const article = defineCollection({
     published: z.nullish(z.date()),
     updated: z.nullish(z.date()),
     featured: z.boolean(),
-    landing: z.boolean()
+    landing: z.boolean(),
+    readNext: z.optional(z.array(z.string())),
   }),
 });
 
