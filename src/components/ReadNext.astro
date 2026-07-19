@@ -4,7 +4,7 @@ import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 
 interface Props {
-  articles: {
+  guides: {
     title: string;
     description: string;
     slug: string;
@@ -12,7 +12,7 @@ interface Props {
   }[];
 }
 
-const { articles } = Astro.props;
+const { guides } = Astro.props;
 ---
 
 <section class="mx-auto mt-16">
@@ -20,25 +20,25 @@ const { articles } = Astro.props;
 
   <div class="mt-6 flex flex-wrap justify-start gap-6">
     {
-      articles.map((article) => (
-        <article class="w-full max-w-[22rem] rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_20px_60px_-28px_rgba(15,23,42,0.15)]">
+      guides.map((guide) => (
+        <article class="flex h-full flex-col w-full max-w-[22rem] rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_20px_60px_-28px_rgba(15,23,42,0.15)]">
             <a
-              href={`/articles/${article.slug}`}
+              href={`/guides/${guide.slug}`}
               class="absolute inset-0 text-[0px]"
             />
             <Image
-              src={article.mainImage}
-              alt={`${article.title} cover`}
+              src={guide.mainImage}
+              alt={`${guide.title} cover`}
               class="h-44 w-full object-cover"
             />
-            <div class="p-6 pb-10">
+            <div class="flex flex-1 flex-col p-6 pb-10">
               <h3 class="mt-3 text-xl font-semibold text-slate-900">
-                {article.title}
+                {guide.title}
               </h3>
               <p class="mt-3 text-sm leading-7 text-slate-600">
-                {article.description}
+                {guide.description}
               </p>
-              <ReadMoreButton href={`/articles/${article.slug}`} />
+              <ReadMoreButton href={`/guides/${guide.slug}`} />
             </div>
           </div>
         </article>

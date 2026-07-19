@@ -1,0 +1,59 @@
+---
+import "../../styles/global.css";
+
+import { getCollection, render } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+// import ReadNext from "../../components/ReadNext.astro";
+
+export async function getStaticPaths() {
+  const guides = await getCollection("guide");
+  return guides
+    .filter((guide) => guide.data.published)
+    .map((guide) => ({
+      params: { slug: guide.data.slug },
+      props: { guide },
+    }));
+}
+
+const allGuides = await getCollection("guide");
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+
+const readNextGuides = (
+  guide.data.readNext?.length
+    ? guide.data.readNext
+        .map((slug) => allGuides.find((item) => item.data.slug === slug))
+        .filter(
+          (item): item is (typeof allGuides)[number] =>
+            item !== undefined && item.data.published !== undefined,
+        )
+    : allGuides.filter(
+        (item) => item.data.published && item.data.slug !== guide.data.slug,
+      )
+)
+  .slice(0, 2)
+  .map((item) => ({
+    title: item.data.title,
+    description: item.data.description,
+    slug: item.data.slug,
+    mainImage: item.data.mainImage,
+  }));
+---
+
+<ArticleLayout pageTitle={guide.data.title}>
+  <article>
+    {
+      guide.data.updated ? (
+        <p>Updated on {guide.data.updated.toLocaleDateString("fi-FI")}</p>
+      ) : (
+        <p>Created on {guide.data.published?.toLocaleDateString("fi-FI")}</p>
+      )
+    }
+    <Content />
+  </article>
+
+  {
+    // TODO: Fix ReadNext compoent
+    // <ReadNext guides={readNextGuides} />}
+  }
+</ArticleLayout>

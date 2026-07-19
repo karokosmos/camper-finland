@@ -8,8 +8,8 @@ import { getCollection } from "astro:content";
 import ReadMoreButton from "../components/ReadMoreButton.astro";
 import { Image } from "astro:assets";
 
-const allArticles = await getCollection("article");
-const landingArticles = allArticles.filter((article) => article.data.landing);
+const allGuides = await getCollection("guide");
+const landingGuides = allGuides.filter((guide) => guide.data.landing);
 ---
 
 <BaseLayout>
@@ -22,7 +22,7 @@ const landingArticles = allArticles.filter((article) => article.data.landing);
           <h1
             class="max-w-2xl text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl"
           >
-            Your guide to motorhome, caravan & campervan travel in Finland
+            Your guide to camping in Finland
             <Image
               src={flag}
               alt="Finnish flag"
@@ -38,10 +38,10 @@ const landingArticles = allArticles.filter((article) => article.data.landing);
 
         <div class="flex flex-wrap gap-4">
           <a
-            href="/articles"
+            href="/guides"
             class="inline-flex items-center justify-center rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
           >
-            Explore articles
+            Explore guides
           </a>
           <a
             href="/about"
@@ -53,51 +53,51 @@ const landingArticles = allArticles.filter((article) => article.data.landing);
       </div>
 
       <div
-        class="relative overflow-hidden rounded-[1.75rem] border border-slate-100 bg-white shadow-[0_24px_80px_-24px_rgba(15,23,42,0.18)]"
+        class="relative hidden overflow-hidden rounded-[1.75rem] border border-slate-100 bg-white shadow-[0_24px_80px_-24px_rgba(15,23,42,0.18)] lg:block"
       >
         <Image
           src={camper}
           alt="Campervan parked by a Finnish lake"
-          class="h-full w-full object-cover sm:h-[520px]"
+          class="h-full w-full object-cover lg:h-[520px]"
         />
       </div>
     </section>
 
-    <section id="articles" class="mx-auto max-w-7xl px-6 pb-20 pt-8">
+    <section id="guides" class="mx-auto max-w-7xl px-6 pb-20 pt-8">
       <div class="mb-8 max-w-4xl">
         <p
           class="text-sm font-semibold uppercase tracking-[0.24em] text-sky-700"
         >
-          Articles
+          Guides
         </p>
         <h2 class="mt-2 text-3xl font-semibold text-slate-900">
-          Practical tips and road trip guides
+          Start planning your camping trip
         </h2>
       </div>
 
       <div class="grid gap-6 md:grid-cols-3">
         {
-          landingArticles?.map((article) => (
-            <article class="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_20px_60px_-28px_rgba(15,23,42,0.15)]">
-              <div class="relative">
+          landingGuides?.map((guide) => (
+            <article class="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_20px_60px_-28px_rgba(15,23,42,0.15)]">
+              <div class="relative flex h-full flex-col">
                 <a
-                  href={`/articles/${article.data.slug}`}
+                  href={`/guides/${guide.data.slug}`}
                   class="absolute inset-0 text-[0px]"
                 />
                 <Image
-                  src={article.data.mainImage}
-                  alt={`${article.data.title} cover`}
+                  src={guide.data.mainImage}
+                  alt={`${guide.data.title} cover`}
                   class="h-44 w-full object-cover"
                 />
-                <div class="p-6 pb-10">
+                <div class="flex flex-1 flex-col p-6 pb-10">
                   {/* <p class="text-sm font-semibold text-sky-700">Summer route</p> */}
                   <h3 class="mt-3 text-xl font-semibold text-slate-900">
-                    {article.data.title}
+                    {guide.data.title}
                   </h3>
                   <p class="mt-3 text-sm leading-7 text-slate-600">
-                    {article.data.description}
+                    {guide.data.description}
                   </p>
-                  <ReadMoreButton href={`/articles/${article.data.slug}`} />
+                  <ReadMoreButton href={`/guides/${guide.data.slug}`} />
                 </div>
               </div>
             </article>
@@ -107,10 +107,10 @@ const landingArticles = allArticles.filter((article) => article.data.landing);
 
       <!--<div class="text-center">
         <a
-          href="/articles"
+          href="/guides"
           class="inline-flex items-center justify-center rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
         >
-          All articles
+          All guides
         </a>
       </div>-->
     </section>
