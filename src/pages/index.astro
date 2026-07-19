@@ -2,10 +2,11 @@
 import "../styles/global.css";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
-import camper from "../assets/camper.jpg";
-import flag from "../assets/finland_flag.png";
+import flag from "../assets/icons/finland_flag.png";
+import camper from "../assets/images/camper.jpg";
 import { getCollection } from "astro:content";
 import ReadMoreButton from "../components/ReadMoreButton.astro";
+import { Image } from "astro:assets";
 
 const allArticles = await getCollection("article");
 const landingArticles = allArticles.filter((article) => article.data.landing);
@@ -22,8 +23,8 @@ const landingArticles = allArticles.filter((article) => article.data.landing);
             class="max-w-2xl text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl"
           >
             Your guide to motorhome, caravan & campervan travel in Finland
-            <img
-              src={flag.src}
+            <Image
+              src={flag}
               alt="Finnish flag"
               class="ml-2 inline h-7 w-9 rounded-sm align-baseline shadow-lg"
             />
@@ -54,8 +55,8 @@ const landingArticles = allArticles.filter((article) => article.data.landing);
       <div
         class="relative overflow-hidden rounded-[1.75rem] border border-slate-100 bg-white shadow-[0_24px_80px_-24px_rgba(15,23,42,0.18)]"
       >
-        <img
-          src={camper.src}
+        <Image
+          src={camper}
           alt="Campervan parked by a Finnish lake"
           class="h-full w-full object-cover sm:h-[520px]"
         />
@@ -83,9 +84,9 @@ const landingArticles = allArticles.filter((article) => article.data.landing);
                   href={`/articles/${article.data.slug}`}
                   class="absolute inset-0 text-[0px]"
                 />
-                <img
-                  src={camper.src}
-                  alt="Campervan parked by a Finnish lake"
+                <Image
+                  src={article.data.mainImage}
+                  alt={`${article.data.title} cover`}
                   class="h-44 w-full object-cover"
                 />
                 <div class="p-6 pb-10">

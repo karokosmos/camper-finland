@@ -4,7 +4,7 @@ import { glob } from 'astro/loaders';
 
 const article = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/articles' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
     slug: z.string(),
@@ -13,6 +13,7 @@ const article = defineCollection({
     featured: z.boolean(),
     landing: z.boolean(),
     readNext: z.optional(z.array(z.string())),
+    mainImage: image(),
   }),
 });
 

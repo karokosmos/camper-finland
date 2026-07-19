@@ -2,9 +2,9 @@
 import "../styles/global.css";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
-import camper from "../assets/camper.jpg";
 import { getCollection } from "astro:content";
 import ReadMoreButton from "../components/ReadMoreButton.astro";
+import { Image } from "astro:assets";
 
 const allArticles = await getCollection("article");
 const featuredArticle = allArticles.find((article) => article.data.featured);
@@ -34,9 +34,9 @@ const articles = allArticles.filter((article) => !article.data.featured);
                 href={`/articles/${featuredArticle?.data.slug}`}
                 class="absolute inset-0 text-[0px]"
               />
-              <img
-                src={camper.src}
-                alt="Campervan parked by a Finnish lake"
+              <Image
+                src={featuredArticle.data.mainImage}
+                alt={`${featuredArticle.data.title} cover`}
                 class="h-120 w-full object-cover"
               />
               <div class="p-10 lg:px-12 lg:py-14">
@@ -67,9 +67,9 @@ const articles = allArticles.filter((article) => !article.data.featured);
                   href={`/articles/${article.data.slug}`}
                   class="absolute inset-0 text-[0px]"
                 />
-                <img
-                  src={camper.src}
-                  alt="Campervan parked by a Finnish lake"
+                <Image
+                  src={article.data.mainImage}
+                  alt={`${article.data.title} cover`}
                   class="h-56 w-full object-cover"
                 />
                 <div class="p-7 pb-12">
