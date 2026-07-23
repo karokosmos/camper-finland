@@ -41,15 +41,15 @@ const readNextGuides = (
 ---
 
 <ArticleLayout pageTitle={guide.data.title}>
-  <article>
+  <article class="text-[1.1rem]">
+    <Content />
     {
       guide.data.updated ? (
-        <p>Updated on {guide.data.updated.toLocaleDateString("fi-FI")}</p>
+        <p class="text-slate-400 text-sm italic mt-12">Updated on {guide.data.updated.toLocaleDateString("fi-FI")}</p>
       ) : (
-        <p>Created on {guide.data.published?.toLocaleDateString("fi-FI")}</p>
+        <p class="text-slate-400 text-sm italic mt-12">Published on {guide.data.published?.toLocaleDateString("fi-FI")}</p>
       )
     }
-    <Content />
   </article>
 
   {
