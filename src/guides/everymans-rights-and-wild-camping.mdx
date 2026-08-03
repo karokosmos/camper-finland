@@ -6,12 +6,15 @@ updated: null
 featured: true
 landing: true
 slug: everymans-rights-and-wild-camping
-readNext: ["lake-loop", "quiet-stops"]
-mainImage: '../assets/images/camper.jpg'
+readNext: ["camping-in-helsinki", "driving-from-south-to-lapland"]
+mainImage: '../assets/images/tenting_in_repovesi.jpg'
 ---
 
+import { Image } from 'astro:assets';
 import LinkCard from '../components/LinkCard.astro';
 import WordCard from '../components/WordCard.astro';
+import tentingInRepovesiImg from '../assets/images/tenting_in_repovesi.jpg';
+import vanWildCampingWithHavuImg from '../assets/images/van_wild_camping_with_havu.jpg';
 
 # {frontmatter.title}
 
@@ -32,6 +35,14 @@ Wild camping is a familiar concept especially for people travelling in camper va
 But the good news is that Finnish traffic laws generally allow spending the night in a motor vehicle parked beside a road or in a designated parking or rest area, as long as the vehicle is legally parked and does not cause a hazard or obstruct traffic. 
 
 __A good rule of thumb is: if parking is permitted and there are no signs prohibiting overnight stays or camping, you may usually spend the night in your recreational vehicle.__
+
+<div>
+  <div class="sm:columns-2 gap-4 pt-[0.5em]">
+    <Image src={tentingInRepovesiImg} alt="Tenting in Repovesi" class="rounded aspect-square mt-0 mb-0" />
+    <Image src={vanWildCampingWithHavuImg} alt="Wild camping with campervan and a dog" class="rounded aspect-square mb-0" />
+  </div>
+   <p class="text-slate-500 text-sm sm:mb-4 mt-0">Wild camping with a tent (Repovesi national park) and a campervan</p>
+</div>
 
 If you are heading to a national park, keep in mind that there may be local rules that restrict everyman’s rights, including where camping is allowed. It is a good idea to check the park's rules in advance if you are planning to stay overnight. Spending the night inside a camper or motorhome is generally allowed in designated parking areas unless local signs or regulations state otherwise.
 

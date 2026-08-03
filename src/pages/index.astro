@@ -3,7 +3,7 @@ import "../styles/global.css";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import flag from "../assets/icons/finland_flag.png";
-import camper from "../assets/images/camper.jpg";
+import teaInRepovesiImg from "../assets/images/tea_in_repovesi.jpg";
 import { getCollection } from "astro:content";
 import ReadMoreButton from "../components/ReadMoreButton.astro";
 import { Image } from "astro:assets";
@@ -56,7 +56,7 @@ const landingGuides = allGuides.filter((guide) => guide.data.landing);
         class="relative hidden overflow-hidden rounded-[1.75rem] border border-slate-100 bg-white shadow-[0_24px_80px_-24px_rgba(15,23,42,0.18)] lg:block"
       >
         <Image
-          src={camper}
+          src={teaInRepovesiImg}
           alt="Campervan parked by a Finnish lake"
           class="h-full w-full object-cover lg:h-[520px]"
         />
