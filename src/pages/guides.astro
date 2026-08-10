@@ -13,12 +13,10 @@ const guides = allGuides.filter((guide) => !guide.data.featured);
 
 <BaseLayout pageTitle="Practical tips and road trip guides">
   <main>
-    <div class="mx-auto max-w-7xl px-6 py-14 lg:py-20">
-      <h1 class="mt-4 text-4xl font-semibold text-slate-900 sm:text-5xl">
+    <div class="mx-auto max-w-7xl px-6 mb-32">
+      <h1 class="mt-4 text-4xl font-semibold text-slate-900 sm:text-5xl py-14 lg:py-20">
         Camping guides for Finland
       </h1>
-    </div>
-    <div class="mx-auto max-w-7xl px-6 pb-20 mb-12">
       {
         featuredGuide && (
           <article class="flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_24px_80px_-28px_rgba(15,23,42,0.15)]">

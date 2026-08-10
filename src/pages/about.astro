@@ -2,18 +2,45 @@
 import "../styles/global.css";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ReadMoreButton from "../components/ReadMoreButton.astro";
 ---
 
 <BaseLayout pageTitle="About">
   <main>
-    <article class="mx-auto max-w-7xl px-6 py-14 lg:py-20">
-      <p class="text-sm font-semibold uppercase tracking-[0.24em] text-sky-700">
+    <article class="mx-auto max-w-7xl px-6 mb-32">
+      <h1
+        class="mt-4 text-4xl font-semibold text-slate-900 sm:text-5xl py-14 lg:py-20"
+      >
         About
-      </p>
-      <h1 class="mt-4 text-4xl font-semibold text-slate-900 sm:text-5xl">
-        Who, what, why?
       </h1>
-      <p>Lorem ipsum</p>
-    </article>
+      <div class="text-[1.1rem] leading-8">
+        <p>
+          My name is Karo, and I am a Finnish camper enthusiast. I run this
+          website with the help of my family.
+        </p>
+        <br />
+        <p>
+          We are former van lifers who traveled and lived in a self-converted
+          camper van. Nowadays, we travel with our caravan, our kids, and our
+          dog. We have traveled by motorhome in North America and Australia, and
+          by camper throughout Europe. We look forward to many more camping
+          trips in Finland and around the world.
+        </p>
+        <br />
+        <p>
+          The goal of this website is to help you plan and enjoy a great camping
+          trip in our northern homeland. Finland is an excellent destination for
+          a road trip, offering beautiful nature, peaceful surroundings, and
+          plenty of space. Whether you travel with a motorhome, camper van,
+          caravan, or prefer camping in a tent or hammock, I hope you will find
+          useful information here.
+        </p>
+        <br />
+        <p>
+          I hope this website helps you plan your adventure. If you have any
+          questions, suggestions, or feedback, feel free to contact me at
+          hello@camperfinland.com.
+        </p>
+      </div>
   </main>
 </BaseLayout>
