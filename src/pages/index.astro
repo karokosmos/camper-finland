@@ -38,13 +38,13 @@ const landingGuides = allGuides.filter((guide) => guide.data.landing);
 
         <div class="flex flex-wrap gap-4">
           <a
-            href="/camper-finland/guides"
+            href="/guides"
             class="inline-flex items-center justify-center rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-700"
           >
             Explore guides
           </a>
           <a
-            href="/camper-finland/about"
+            href="/about"
             class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-700 hover:text-sky-700"
           >
             Learn more
@@ -81,7 +81,7 @@ const landingGuides = allGuides.filter((guide) => guide.data.landing);
             <article class="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-[0_20px_60px_-28px_rgba(15,23,42,0.15)]">
               <div class="relative flex h-full flex-col">
                 <a
-                  href={`/camper-finland/guides/${guide.data.slug}`}
+                  href={`/guides/${guide.data.slug}`}
                   class="absolute inset-0 text-[0px]"
                 />
                 <Image
@@ -97,7 +97,7 @@ const landingGuides = allGuides.filter((guide) => guide.data.landing);
                   <p class="mt-3 text-sm leading-7 text-slate-600">
                     {guide.data.description}
                   </p>
-                  <ReadMoreButton href={`/camper-finland/guides/${guide.data.slug}`} />
+                  <ReadMoreButton href={`/guides/${guide.data.slug}`} />
                 </div>
               </div>
             </article>
