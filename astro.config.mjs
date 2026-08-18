@@ -10,4 +10,5 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   site: 'https://camperfinland.com',
+  trailingSlash: 'always',
 });

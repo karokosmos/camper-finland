@@ -1,7 +1,6 @@
 ---
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import finlandFlagCircular from "../assets/icons/finland-flag-circular.svg";
 
 const { pageTitle = "Your guide to camping in Finland" } = Astro.props;
 ---
@@ -19,8 +18,10 @@ const { pageTitle = "Your guide to camping in Finland" } = Astro.props;
       name="keywords"
       content="Camper Finland, motorhome travel Finland, caravan Finland, campervan Finland, Finland campsites, camping Finland"
     />
-    <link rel="icon" type="image/svg+xml" href={finlandFlagCircular.src} />
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
