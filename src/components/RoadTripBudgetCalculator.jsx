@@ -32,10 +32,10 @@ const num1 = (n) => new Intl.NumberFormat("fi-FI", { maximumFractionDigits: 1 })
 const num2 = (n) => new Intl.NumberFormat("fi-FI", { maximumFractionDigits: 2 }).format(n || 0);
 
 export default function RoadTripBudgetCalculator() {
-  const [fuelType, setFuelType] = useState("diesel");
+  const [fuelType, setFuelType] = useState("");
   const [consumption, setConsumption] = useState("");
   const [distance, setDistance] = useState("");
-  const [campingType, setCampingType] = useState("vehicle");
+  const [campingType, setCampingType] = useState("");
   const [needsElectricity, setNeedsElectricity] = useState(false);
   const [adults, setAdults] = useState("");
   const [kids, setKids] = useState("");
@@ -50,31 +50,34 @@ export default function RoadTripBudgetCalculator() {
   const fuel = FUEL_PRICES[fuelType];
   const camp = CAMP_PRICES[campingType];
 
-  const fuelUnits = (distanceNum / 100) * consumptionNum;
-  const fuelCost = fuelUnits * fuel.price;
+  const fuelUnits = fuel ? (distanceNum / 100) * consumptionNum : 0;
+  const fuelCost = fuel ? fuelUnits * fuel.price : 0;
 
-  const perNightBase = camp.pitch + camp.adult * adultsNum + camp.child * kidsNum;
-  const perNightElectricity = campingType === "vehicle" && needsElectricity ? camp.elec : 0;
+  const perNightBase = camp ? camp.pitch + camp.adult * adultsNum + camp.child * kidsNum : 0;
+  const perNightElectricity = camp && campingType === "vehicle" && needsElectricity ? camp.elec : 0;
   const perNightTotal = perNightBase + perNightElectricity;
-  const campgroundCost = perNightTotal * nightsNum;
+  const campgroundCost = camp ? perNightTotal * nightsNum : 0;
 
   const total = fuelCost + campgroundCost;
 
-  const campLabel = campingType === "vehicle" ? "vehicle camping" : "tent camping";
-  const elecPart = campingType === "vehicle" && needsElectricity ? ` + electricity ${num2(camp.elec)} €` : "";
+  const campLabel = campingType === "vehicle" ? "vehicle camping" : campingType === "tent" ? "tent camping" : "";
+  const elecPart = camp && campingType === "vehicle" && needsElectricity ? ` + electricity ${num2(camp.elec)} €` : "";
 
-  const breakdown = [
-    {
+  const breakdown = [];
+  if (fuel) {
+    breakdown.push({
       label: `Fuel - ${fuel.label}`,
       formula: `${num1(distanceNum)} km ÷ 100 × ${num1(consumptionNum)} ${fuel.unit}/100km = ${num1(fuelUnits)} ${fuel.unit} × ${num2(fuel.price)} €/${fuel.unit}`,
       value: eur(fuelCost),
-    },
-    {
+    });
+  }
+  if (camp) {
+    breakdown.push({
       label: `Campgrounds - ${campLabel}`,
       formula: `(pitch ${num2(camp.pitch)} € + ${adultsNum} adult × ${num2(camp.adult)} € + ${kidsNum} kid × ${num2(camp.child)} €${elecPart}) × ${nightsNum} night(s)`,
       value: eur(campgroundCost),
-    },
-  ];
+    });
+  }
 
   return (
     <div className="grid md:grid-cols-2 gap-4 justify-items-center">
@@ -86,15 +89,16 @@ export default function RoadTripBudgetCalculator() {
         <p className="mb-6 mt-0 pt-0 text-sm font-light">Calculate estimated fuel and campground costs</p>
         <div>
           <div className="mb-4">
-            <label htmlFor="fuelType" className="mb-3 text-sm">
+            <label htmlFor="fuel-type" className="mb-3 text-sm">
               Fuel type
             </label>
             <select
-              id="fuelType"
+              id="fuel-type"
               value={fuelType}
               onChange={(e) => setFuelType(e.target.value)}
               className={inputClass}
             >
+              <option value="">Choose option</option>
               <option value="diesel">{FUEL_PRICES["diesel"].capitalizedLabel}</option>
               <option value="petrol95">{FUEL_PRICES["petrol95"].capitalizedLabel}</option>
               <option value="petrol98">{FUEL_PRICES["petrol98"].capitalizedLabel}</option>
@@ -103,7 +107,7 @@ export default function RoadTripBudgetCalculator() {
           </div>
           <div className="mb-4">
             <label htmlFor="consumption" className="mb-3 text-sm">
-              Avg. consumption ({fuel.unit}/100&nbsp;km)
+              Avg. consumption {fuel ? `(${fuel.unit}/100\u00A0km)` : "per 100\u00A0km"}
             </label>
             <input
               id="consumption"
@@ -133,15 +137,16 @@ export default function RoadTripBudgetCalculator() {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="campingType" className="mb-3 text-sm">
+            <label htmlFor="camping-type" className="mb-3 text-sm">
               Camping type
             </label>
             <select
-              id="campingType"
+              id="camping-type"
               value={campingType}
               onChange={(e) => setCampingType(e.target.value)}
               className={inputClass}
             >
+              <option value="">Choose option</option>
               <option value="vehicle">Caravan / motorhome / camper van</option>
               <option value="tent">Tent</option>
             </select>
@@ -149,9 +154,9 @@ export default function RoadTripBudgetCalculator() {
 
           {campingType === "vehicle" && (
             <div className="mb-4">
-              <label htmlFor="needsElectricity" className="flex items-center gap-3 rounded-lg px-2 cursor-pointer">
+              <label htmlFor="needs-electricity" className="flex items-center gap-3 rounded-lg px-2 cursor-pointer">
                 <input
-                  id="needsElectricity"
+                  id="needs-electricity"
                   type="checkbox"
                   checked={needsElectricity}
                   onChange={(e) => setNeedsElectricity(e.target.checked)}
@@ -251,17 +256,22 @@ export default function RoadTripBudgetCalculator() {
         <div className="w-full rounded-2xl border border-neutral-200 bg-white p-5 text-xs leading-relaxed text-neutral-500 md:p-6 mt-4">
           <p className="mb-2 text-neutral-700">Data this estimate is based on</p>
           <p className="mb-1">
-            {fuelType === "biogas" ? (
-              `Fuel — ${fuel.label}: 2026 price of ${num2(fuel.price)} €/${fuel.unit} (biogas price on Gasum stations).`
+            {fuel ? (
+              fuelType === "biogas" ? (
+                `Fuel — ${fuel.label}: 2026 price of ${num2(fuel.price)} €/${fuel.unit} (biogas price on Gasum stations).`
+              ) : (
+                `Fuel — ${fuel.label}: 2026 average price of ${num2(fuel.price)} €/${fuel.unit} (based on data collected by Tilastokeskus).`
+              )
             ) : (
-              `Fuel — ${fuel.label}: 2026 average price of ${num2(fuel.price)} €/${fuel.unit} (based on data collected by Tilastokeskus).`
+              "Select a fuel type to see its price source."
             )}
           </p>
           <p className="mb-1">
-            Campgrounds — {campLabel.toLowerCase()}: pitch {num2(camp.pitch)} €, adult{" "}
-            {num2(camp.adult)} €, child {num2(camp.child)} €
-            {campingType === "vehicle" ? `, electricity ${num2(camp.elec)} €` : ""}.
-            Fixed medians from {camp.sitesN} campsites' 2026 price lists (with summer season prices).
+            {camp ? (
+              `Campgrounds — ${campLabel}: pitch ${num2(camp.pitch)} €, adult ${num2(camp.adult)} €, child ${num2(camp.child)} €${campingType === "vehicle" ? `, electricity ${num2(camp.elec)} €` : ""}. Fixed medians from ${camp.sitesN} campsites' 2026 price lists (with summer season prices).`
+            ) : (
+              "Select a camping type to see the campground price basis."
+            )}
           </p>
           <p>This is a planning estimate — actual prices vary by site, season, etc.</p>
         </div>
