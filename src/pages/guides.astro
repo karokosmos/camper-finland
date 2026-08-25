@@ -29,6 +29,7 @@ const guides = allGuides.filter((guide) => !guide.data.featured);
                 src={featuredGuide.data.mainImage}
                 alt={`${featuredGuide.data.title} cover`}
                 class="h-120 w-full object-cover"
+                loading="eager"
               />
               <div class="flex flex-1 flex-col p-10 lg:px-12 lg:py-14">
                 {/*<p class="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700">
@@ -60,6 +61,7 @@ const guides = allGuides.filter((guide) => !guide.data.featured);
                   src={guide.data.mainImage}
                   alt={`${guide.data.title} cover`}
                   class="h-56 w-full object-cover"
+                  loading="eager"
                 />
                 <div class="flex flex-1 flex-col p-7 pb-12">
                   {/*<p class="text-sm font-semibold text-sky-700">Summer route</p>*/}

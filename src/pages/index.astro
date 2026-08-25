@@ -27,6 +27,7 @@ const landingGuides = allGuides.filter((guide) => guide.data.landing);
               src={flag}
               alt="Finnish flag"
               class="ml-2 inline h-7 w-9 rounded-sm align-baseline shadow-lg"
+              loading="eager"
             />
           </h1>
 
@@ -57,8 +58,9 @@ const landingGuides = allGuides.filter((guide) => guide.data.landing);
       >
         <Image
           src={teaInRepovesiImg}
-          alt="Campervan parked by a Finnish lake"
+          alt="Moomin tea cup and Repovesi landscape"
           class="h-full w-full object-cover lg:h-[520px]"
+          loading="eager"
         />
       </div>
     </section>
@@ -88,6 +90,7 @@ const landingGuides = allGuides.filter((guide) => guide.data.landing);
                   src={guide.data.mainImage}
                   alt={`${guide.data.title} cover`}
                   class="h-44 w-full object-cover"
+                  loading="eager"
                 />
                 <div class="flex flex-1 flex-col p-6 pb-10">
                   {/* <p class="text-sm font-semibold text-sky-700">Summer route</p> */}

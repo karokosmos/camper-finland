@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-const FUEL_PRICES = {
+export const FUEL_PRICES = {
   diesel: { capitalizedLabel: "Diesel", label: "diesel", unit: "l", price: 2.07 },
   petrol95: { capitalizedLabel: "Petrol 95 E10", label: "petrol 95 E10", unit: "l", price: 1.96 },
   petrol98: { capitalizedLabel: "Petrol 98 E5", label: "petrol 98 E5", unit: "l", price: 2.07 },
   biogas: { capitalizedLabel: "Biogas (CBG)", label: "biogas (CBG)", unit: "kg", price: 2.20 },
 };
 
-const CAMP_PRICES = {
+export const CAMP_PRICES = {
   "tent": {
     "pitch": 17.75, "pitchN": 22,
     "adult": 6.00, "adultN": 22,
