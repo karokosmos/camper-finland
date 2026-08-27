@@ -203,7 +203,7 @@ export default function RoadTripBudgetCalculator() {
               type="number"
               min="0"
               step="1"
-              placeholder="e.g. 0"
+              placeholder="e.g. 2"
               value={kids}
               onChange={(e) => setKids(e.target.value)}
               className={inputClass}

@@ -1,0 +1,11 @@
+---
+import Info from "../assets/icons/info.svg";
+const { text } = Astro.props;
+---
+
+<div class="bg-sky-100 rounded px-6 py-4 flex">
+  <span class="text-sky-600">
+    <Info class="mr-4 mt-1 stroke-current" />
+  </span>
+  <p class="mt-0 mb-0 text-[1rem]">{text}</p>
+</div>
