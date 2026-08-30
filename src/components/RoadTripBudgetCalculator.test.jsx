@@ -109,7 +109,7 @@ describe("RoadTripBudgetCalculator", () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByText("Fuel — biogas (CBG): 2026 price of 2,2 €/kg (biogas price on Gasum stations)."),
+      screen.getByText("Fuel — biogas (CBG): 2026 price of 2,3 €/kg (biogas price on Gasum stations)."),
     ).toBeInTheDocument();
   });
 

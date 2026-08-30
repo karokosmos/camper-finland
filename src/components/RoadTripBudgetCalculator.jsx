@@ -4,7 +4,7 @@ export const FUEL_PRICES = {
   diesel: { capitalizedLabel: "Diesel", label: "diesel", unit: "l", price: 2.07 },
   petrol95: { capitalizedLabel: "Petrol 95 E10", label: "petrol 95 E10", unit: "l", price: 1.96 },
   petrol98: { capitalizedLabel: "Petrol 98 E5", label: "petrol 98 E5", unit: "l", price: 2.07 },
-  biogas: { capitalizedLabel: "Biogas (CBG)", label: "biogas (CBG)", unit: "kg", price: 2.20 },
+  biogas: { capitalizedLabel: "Biogas (CBG)", label: "biogas (CBG)", unit: "kg", price: 2.30 },
 };
 
 export const CAMP_PRICES = {
